@@ -30,14 +30,6 @@ export default async function IdolProfilePage({
 }: {
   params: Promise<{ slug: string }>;
 }) {
-  const idolDetails = {
-    photos: [
-      "https://upload.wikimedia.org/wikipedia/commons/2/2d/20240226_Kim_Jisoo_%EA%B9%80%EC%A7%80%EC%88%98_02.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/2/2d/20240226_Kim_Jisoo_%EA%B9%80%EC%A7%80%EC%88%98_02.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/2/2d/20240226_Kim_Jisoo_%EA%B9%80%EC%A7%80%EC%88%98_02.jpg",
-    ],
-  };
-
   const idol = await fetchIdol((await params).slug);
   const processedBio = (await remark().process(idol.data.bio)).toString();
   const events: Schedule[] = [];
@@ -62,7 +54,7 @@ export default async function IdolProfilePage({
         group={idol.data.group}
       />
       <IdolUpcomingEvents events={events} />
-      <IdolPhotoGallery photos={idolDetails.photos} />
+      <IdolPhotoGallery photos={idol.data.photos} />
       <IdolTopSongs idol={idol.data} />
     </div>
   );

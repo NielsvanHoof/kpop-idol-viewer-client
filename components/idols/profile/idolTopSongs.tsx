@@ -14,6 +14,7 @@ export default function IdolTopSongs({ idol }: { idol: Idol }) {
   } = useQuery({
     queryKey: ["top-songs", idol.spotify_id],
     queryFn: () => fetchTopSongs(idol.spotify_id),
+    enabled: !!idol.spotify_id,
   });
 
   const containerVariants = {
@@ -32,7 +33,35 @@ export default function IdolTopSongs({ idol }: { idol: Idol }) {
   };
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    // skeleton loading
+    return (
+      <div className="space-y-4">
+        <div className="flex items-center bg-white rounded-lg p-4 animate-pulse shadow-md">
+          <div className="w-16 h-16 rounded-md bg-gray-300"></div>
+          <div className="flex-1 space-y-2">
+            <div className="w-3/4 h-4 bg-gray-300"></div>
+            <div className="w-1/2 h-4 bg-gray-300"></div>
+            <div className="w-1/3 h-4 bg-gray-300"></div>
+          </div>
+        </div>
+        <div className="flex items-center bg-white rounded-lg p-4 animate-pulse shadow-md">
+          <div className="w-16 h-16 rounded-md bg-gray-300"></div>
+          <div className="flex-1 space-y-2">
+            <div className="w-3/4 h-4 bg-gray-300"></div>
+            <div className="w-1/2 h-4 bg-gray-300"></div>
+            <div className="w-1/3 h-4 bg-gray-300"></div>
+          </div>
+        </div>
+        <div className="flex items-center bg-white rounded-lg p-4 animate-pulse shadow-md">
+          <div className="w-16 h-16 rounded-md bg-gray-300"></div>
+          <div className="flex-1 space-y-2">
+            <div className="w-3/4 h-4 bg-gray-300"></div>
+            <div className="w-1/2 h-4 bg-gray-300"></div>
+            <div className="w-1/3 h-4 bg-gray-300"></div>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   if (isError) {

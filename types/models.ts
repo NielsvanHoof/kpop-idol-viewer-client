@@ -13,6 +13,7 @@ export interface Idol {
   group: Group;
   spotify_id: string;
   profile_picture: string;
+  photos: string[];
   schedules: Schedule[];
 }
 

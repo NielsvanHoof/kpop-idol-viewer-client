@@ -2,58 +2,63 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Slider, { Settings } from "react-slick";
+import "slick-carousel/slick/slick-theme.css";
+import "slick-carousel/slick/slick.css";
 
 interface PhotoGalleryProps {
   photos: string[];
 }
 
-export default function IdolPhotoGallery({ photos }: PhotoGalleryProps) {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2, // Delay between child animations
+const settings: Settings = {
+  dots: true,
+  infinite: true,
+  speed: 500,
+  slidesToShow: 3,
+  slidesToScroll: 1,
+  responsive: [
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 2,
       },
     },
-  };
+    {
+      breakpoint: 640,
+      settings: {
+        slidesToShow: 1,
+      },
+    },
+  ],
+};
 
-  const itemVariants = {
-    hidden: { opacity: 0, scale: 0.8 },
-    visible: { opacity: 1, scale: 1 },
-  };
-
+export default function IdolPhotoGallery({ photos }: PhotoGalleryProps) {
   return (
-    <motion.section
-      className="bg-white py-8"
-      initial="hidden"
-      animate="visible"
-      variants={containerVariants}
-    >
-      <div className="max-w-4xl mx-auto px-4">
-        <h2 className="text-2xl font-bold mb-4">Photo Gallery</h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+    <section className="py-16">
+      <div className="max-w-6xl mx-auto px-4">
+        <h2 className="text-3xl font-bold text-center mb-8">Photo Gallery</h2>
+        <Slider {...settings}>
           {photos.map((photo, index) => (
             <motion.div
               key={index}
-              className="relative w-full h-48"
-              variants={itemVariants}
-              whileHover={{ scale: 1.04 }}
-              transition={{ duration: 0.3 }}
+              className="p-4"
+              whileHover={{ scale: 1.05 }}
             >
-              <Image
-                src={photo}
-                alt={`Idol photo ${index + 1}`}
-                fill={true}
-                sizes="200px"
-                style={{ objectFit: "cover" }}
-                priority={true}
-                className="rounded-lg shadow-lg"
-              />
+              <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+                <Image
+                  src={photo}
+                  alt={photo}
+                  width={400}
+                  height={400}
+                  style={{ objectFit: "cover" }}
+                  priority={true}
+                  className="rounded-t-lg"
+                />
+              </div>
             </motion.div>
           ))}
-        </div>
+        </Slider>
       </div>
-    </motion.section>
+    </section>
   );
 }
