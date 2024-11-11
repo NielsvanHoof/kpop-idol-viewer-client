@@ -45,11 +45,10 @@ export default async function IdolProfilePage({
       <IdolProfileSection
         name={idol.data.name}
         profilePicture={idol.data.profile_picture}
-        description={processedBio}
       />
 
       {/* Tab Navigation */}
-      <IdolTabs idol={idol.data} events={events} />
+      <IdolTabs idol={idol.data} events={events} description={processedBio} />
     </div>
   );
 }

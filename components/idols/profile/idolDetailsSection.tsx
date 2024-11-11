@@ -1,51 +1,137 @@
 "use client";
 
 import { Idol } from "@/types/models";
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { motion } from "framer-motion";
 
-export default function IdolDetailsSection({ idol }: { idol: Idol }) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
+interface BioProps {
+  achievements: string[];
+  socialLinks?: {
+    instagram?: string;
+    twitter?: string;
+    youtube?: string;
+  };
+  trivia: string[];
+  description: string;
+  idol: Idol;
+}
 
+export default function IdolDetailsSection({
+  achievements,
+  socialLinks,
+  trivia,
+  description,
+  idol,
+}: BioProps) {
   return (
-    <motion.section
-      ref={ref}
-      className="bg-white py-8"
+    <motion.div
+      className="space-y-6 text-gray-800 bg-white p-6 rounded-lg shadow-lg"
       initial={{ opacity: 0, y: 20 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-      transition={{ duration: 0.5 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
     >
-      <div className="max-w-4xl mx-auto px-4">
-        <h2 className="text-2xl font-bold mb-4">Profile Details</h2>
-        <p>
-          <strong>Debut Year:</strong>{" "}
-          {new Date(idol.debute_date).getFullYear()}
-        </p>
-        <p>
-          <strong>Agency:</strong> {idol.group.company}
-        </p>
-        <div className="mt-4 flex space-x-4">
-          {/* {socialLinks.map((link, index) => (
-            <motion.a
-              key={index}
-              href={link.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-500 hover:underline"
-              initial={{ opacity: 0, y: 10 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
-              transition={{ delay: 0.2 + index * 0.1 }}
-            >
-              <img
-                src={`/icons/${link.platform}.svg`}
-                alt={link.platform}
-                className="w-6 h-6 inline"
-              />
-            </motion.a>
-          ))} */}
-        </div>
+      {/* Basic Info */}
+      <div className="space-y-2">
+        <h3 className="text-2xl font-semibold text-purple-700">About</h3>
+        <div dangerouslySetInnerHTML={{ __html: description }} />
+        <ul className="mt-4 space-y-1 text-gray-600">
+          <li>
+            <strong>Birthdate:</strong>{" "}
+            {new Date(idol.birthdate).toDateString()}
+          </li>
+          <li>
+            <strong>Birthplace:</strong> {idol.nationality}
+          </li>
+          <li>
+            <strong>Debut Date:</strong>{" "}
+            {new Date(idol.debute_date).toDateString()}
+          </li>
+        </ul>
       </div>
-    </motion.section>
+
+      {/* Group Affiliations */}
+      {idol.group && (
+        <div className="space-y-2">
+          <h3 className="text-xl font-semibold text-purple-700">
+            Group Affiliations
+          </h3>
+          <ul className="space-y-1">
+            <li>
+              <strong>Name:</strong> {idol.group.name}
+            </li>
+            <li>
+              <strong>Company:</strong> {idol.group.company}
+            </li>
+            <li>
+              <strong>Debut Year:</strong>{" "}
+              {new Date(idol.group.debut_date).getFullYear()}
+            </li>
+          </ul>
+        </div>
+      )}
+
+      {/* Achievements */}
+      {achievements && achievements.length > 0 && (
+        <div className="space-y-2">
+          <h3 className="text-xl font-semibold text-purple-700">
+            Achievements
+          </h3>
+          <ul className="list-disc list-inside space-y-1 text-gray-600">
+            {achievements.map((achievement, index) => (
+              <li key={index}>{achievement}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {/* Trivia/Fun Facts */}
+      {trivia && trivia.length > 0 && (
+        <div className="space-y-2">
+          <h3 className="text-xl font-semibold text-purple-700">Trivia</h3>
+          <ul className="list-disc list-inside space-y-1 text-gray-600">
+            {trivia.map((fact, index) => (
+              <li key={index}>{fact}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {/* Social Media Links */}
+      {socialLinks && (
+        <div className="space-y-2">
+          <h3 className="text-xl font-semibold text-purple-700">
+            Follow on Social Media
+          </h3>
+          <div className="flex space-x-4 text-purple-500">
+            {socialLinks.instagram && (
+              <a
+                href={socialLinks.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Instagram
+              </a>
+            )}
+            {socialLinks.twitter && (
+              <a
+                href={socialLinks.twitter}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Twitter
+              </a>
+            )}
+            {socialLinks.youtube && (
+              <a
+                href={socialLinks.youtube}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                YouTube
+              </a>
+            )}
+          </div>
+        </div>
+      )}
+    </motion.div>
   );
 }

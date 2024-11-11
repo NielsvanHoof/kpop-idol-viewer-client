@@ -19,14 +19,33 @@ import IdolTopSongs from "./idolTopSongs";
 export default function IdolTabsContent({
   idol,
   events,
+  description,
 }: {
   idol: Idol;
   events: Schedule[];
+  description: string;
 }) {
   const tabSections = [
     {
       name: "Bio",
-      component: <IdolDetailsSection idol={idol} />,
+      component: (
+        <IdolDetailsSection
+          idol={idol}
+          achievements={[
+            "Won 'Best Female Group' at MAMA Awards 2021",
+            "Featured in Billboard Top 100",
+          ]}
+          socialLinks={{
+            instagram: "https://instagram.com/idolname",
+            twitter: "https://twitter.com/idolname",
+          }}
+          trivia={[
+            "Loves painting in her free time.",
+            "Her favorite color is blue.",
+          ]}
+          description={description}
+        />
+      ),
     },
     {
       name: "Photos",

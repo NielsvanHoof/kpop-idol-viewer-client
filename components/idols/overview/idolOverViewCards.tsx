@@ -34,6 +34,14 @@ function LatestPerformance({ schedules }: { schedules: Schedule[] }) {
     return new Date(b.date).getTime() - new Date(a.date).getTime();
   })[0];
 
+  if (!latestSchedule) {
+    return (
+      <div>
+        <p className="text-sm text-gray-500">No Performances</p>
+      </div>
+    );
+  }
+
   return (
     <div>
       <p className="text-sm text-gray-500">

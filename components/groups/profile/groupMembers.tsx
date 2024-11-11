@@ -2,6 +2,7 @@
 
 import { Idol } from "@/types/models";
 import { UserGroupIcon } from "@heroicons/react/16/solid";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -29,9 +30,12 @@ export default function GroupMembers({ members }: GroupMembersProps) {
     <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
       {members.map((member) => (
         <Link key={member.id} href={`/idols/${member.slug}`}>
-          <div
+          <motion.div
             key={member.id}
             className="text-center bg-white shadow rounded-lg p-4"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ duration: 0.1 }}
           >
             <Image
               src={member.profile_picture}
@@ -41,7 +45,7 @@ export default function GroupMembers({ members }: GroupMembersProps) {
               className="rounded-full object-cover mx-auto shadow"
             />
             <h3 className="mt-2 text-lg font-semibold">{member.name}</h3>
-          </div>
+          </motion.div>
         </Link>
       ))}
     </div>

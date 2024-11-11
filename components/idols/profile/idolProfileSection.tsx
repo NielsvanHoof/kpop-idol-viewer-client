@@ -6,13 +6,11 @@ import Image from "next/image";
 interface IdolProfileProps {
   name: string;
   profilePicture: string;
-  description: string;
 }
 
 export default function IdolProfileSection({
   name,
   profilePicture,
-  description,
 }: IdolProfileProps) {
   return (
     <motion.section
@@ -56,14 +54,6 @@ export default function IdolProfileSection({
         >
           {name}
         </motion.h1>
-        <motion.div
-          className="mt-4 max-w-2xl"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.7 }}
-        >
-          <div dangerouslySetInnerHTML={{ __html: description }} />
-        </motion.div>
       </div>
     </motion.section>
   );
