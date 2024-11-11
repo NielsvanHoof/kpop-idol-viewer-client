@@ -22,10 +22,12 @@ export interface Group {
   name: string;
   debut_date: string;
   company: string;
+  slug: string;
   bio: string;
   social_media: string;
   idols: Idol[];
   cover_picture: string;
+  photos: string[];
   spotify_id: string;
   schedules: Schedule[];
 }

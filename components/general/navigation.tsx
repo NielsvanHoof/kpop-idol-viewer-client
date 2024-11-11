@@ -5,35 +5,21 @@ import {
   Disclosure,
   DisclosureButton,
   DisclosurePanel,
-  Input,
   Popover,
   PopoverButton,
   PopoverPanel,
   Transition,
 } from "@headlessui/react";
-import {
-  Bars3Icon,
-  MagnifyingGlassCircleIcon,
-  UserIcon,
-  XCircleIcon,
-} from "@heroicons/react/16/solid";
-import { motion } from "framer-motion";
+import { Bars3Icon, UserIcon, XCircleIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 
 export default function Navigation() {
-  const [searchQuery, setSearchQuery] = useState<string>("");
-  const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
-
-  const toggleSearch = () => {
-    setIsSearchOpen((prev) => !prev);
-  };
-
   return (
     <Disclosure
       as="nav"
       className="bg-gradient-to-r from-purple-600 to-pink-600 sticky top-0 z-50 shadow-lg"
-    >
+      >
       {({ open }) => (
         <>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -97,43 +83,8 @@ export default function Navigation() {
                 </div>
               </div>
 
-              {/* Search and profile icons */}
+              {/* profile icons */}
               <div className="flex items-center space-x-4">
-                {/* Expandable search bar */}
-                <motion.div
-                  initial={{ width: 0, opacity: 0 }}
-                  animate={{
-                    width: isSearchOpen ? "200px" : 0,
-                    opacity: isSearchOpen ? 1 : 0,
-                  }}
-                  transition={{ duration: 0.3 }}
-                  className={`relative ${
-                    isSearchOpen ? "inline-block" : "hidden"
-                  } md:inline-block overflow-hidden`}
-                >
-                  <Input
-                    type="text"
-                    placeholder="Search..."
-                    className="p-2 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-500"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                  />
-                  <MagnifyingGlassCircleIcon className="absolute left-2 top-2.5 h-5 w-5 text-gray-500" />
-                  <Button
-                    onClick={toggleSearch}
-                    className="absolute right-2 top-2.5"
-                  >
-                    <XCircleIcon className="h-5 w-5 text-gray-500 hover:text-gray-700" />
-                  </Button>
-                </motion.div>
-                <Button
-                  onClick={toggleSearch}
-                  className={`text-white hover:text-purple-200 ${
-                    isSearchOpen ? "hidden" : "block"
-                  } md:block`}
-                >
-                  <MagnifyingGlassCircleIcon className="h-6 w-6" />
-                </Button>
                 <Button className="text-white hover:text-purple-200">
                   <UserIcon className="h-6 w-6" />
                 </Button>
@@ -185,17 +136,6 @@ export default function Navigation() {
               >
                 About Us
               </Link>
-
-              {/* Mobile search input */}
-              <div className="mt-3">
-                <Input
-                  type="text"
-                  placeholder="Search..."
-                  className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-500"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                />
-              </div>
             </div>
           </DisclosurePanel>
         </>

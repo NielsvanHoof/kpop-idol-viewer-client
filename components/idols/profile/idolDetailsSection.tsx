@@ -1,18 +1,10 @@
 "use client";
 
-import { Group } from "@/types/models";
+import { Idol } from "@/types/models";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 
-interface IdolDetailsProps {
-  debutYear: string;
-  group: Group;
-}
-
-export default function IdolDetailsSection({
-  debutYear,
-  group,
-}: IdolDetailsProps) {
+export default function IdolDetailsSection({ idol }: { idol: Idol }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
 
@@ -27,10 +19,11 @@ export default function IdolDetailsSection({
       <div className="max-w-4xl mx-auto px-4">
         <h2 className="text-2xl font-bold mb-4">Profile Details</h2>
         <p>
-          <strong>Debut Year:</strong> {new Date(debutYear).getFullYear()}
+          <strong>Debut Year:</strong>{" "}
+          {new Date(idol.debute_date).getFullYear()}
         </p>
         <p>
-          <strong>Agency:</strong> {group.company}
+          <strong>Agency:</strong> {idol.group.company}
         </p>
         <div className="mt-4 flex space-x-4">
           {/* {socialLinks.map((link, index) => (

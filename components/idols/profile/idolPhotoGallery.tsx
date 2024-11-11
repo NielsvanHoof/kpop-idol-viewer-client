@@ -1,5 +1,6 @@
 "use client";
 
+import { CameraIcon } from "@heroicons/react/24/solid";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Slider, { Settings } from "react-slick";
@@ -33,6 +34,18 @@ const settings: Settings = {
 };
 
 export default function IdolPhotoGallery({ photos }: PhotoGalleryProps) {
+  if (!photos || photos.length === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center bg-purple-50 border border-purple-200 rounded-lg p-8 text-center shadow-md">
+        <CameraIcon className="h-16 w-16 text-purple-300 mb-4" />
+        <h3 className="text-2xl font-semibold text-purple-700">No Photos Available</h3>
+        <p className="text-gray-600 mt-2">
+          This idol doesn&apos;t have any photos to display at the moment. Check back later for updates!
+        </p>
+      </div>
+    );
+  }
+
   return (
     <section className="py-16">
       <div className="max-w-6xl mx-auto px-4">

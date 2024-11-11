@@ -1,14 +1,16 @@
 "use client";
 
 import Error from "@/app/_error";
+import useInfiniteLoading from "@/hooks/useInfiniteLoading";
 import fetchIdols from "@/queries/idols/fetchIdols";
 import { useIdolOverviewStore } from "@/state/idol.overview";
+import { Schedule } from "@/types/models";
 import { Button } from "@headlessui/react";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { UserGroupIcon } from "@heroicons/react/24/solid";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import SkeletonCard from "../../ui/skeletonCard";
 
 const containerVariants = {
@@ -26,6 +28,25 @@ const itemVariants = {
   visible: { opacity: 1, y: 0 },
   exit: { opacity: 0, y: -20 },
 };
+
+function LatestPerformance({ schedules }: { schedules: Schedule[] }) {
+  const latestSchedule = schedules.sort((a, b) => {
+    return new Date(b.date).getTime() - new Date(a.date).getTime();
+  })[0];
+
+  return (
+    <div>
+      <p className="text-sm text-gray-500">
+        {latestSchedule.date > new Date().toISOString()
+          ? "Upcoming Performance"
+          : "Latest Performance"}
+      </p>
+      <p className="text-sm text-gray-500">
+        {new Date(latestSchedule.date).toDateString()}
+      </p>
+    </div>
+  );
+}
 
 export default function IdolOverViewCards() {
   const useOverViewStore = useIdolOverviewStore();
@@ -50,14 +71,14 @@ export default function IdolOverViewCards() {
     isLoading,
     isError,
     refetch,
-    fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-  } = useInfiniteQuery({
+    lastElementRef,
+  } = useInfiniteLoading({
     queryKey: [
       "idols",
       useOverViewStore.searchQuery,
-      useOverViewStore.filterGroup,
+      useOverViewStore.filterGroup.toString(),
       useOverViewStore.sortOption,
     ],
     queryFn: ({ pageParam }) =>
@@ -73,23 +94,7 @@ export default function IdolOverViewCards() {
       lastPage.nextCursor ?? undefined,
   });
 
-  const observer = useRef<IntersectionObserver | null>(null);
-  const lastIdolElementRef = useCallback(
-    (node: HTMLDivElement) => {
-      if (isFetchingNextPage) return;
-      if (observer.current) observer.current.disconnect();
-      observer.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && hasNextPage) {
-          fetchNextPage();
-        }
-      });
-      if (node) observer.current.observe(node);
-    },
-    [isFetchingNextPage, fetchNextPage, hasNextPage]
-  );
-
-  if (isLoading && !data) {
-    // Initial loading state with skeleton loaders
+  if (isLoading) {
     return (
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {Array.from({ length: 4 }).map((_, index) => (
@@ -101,6 +106,21 @@ export default function IdolOverViewCards() {
 
   if (isError) {
     return <Error message="Failed to fetch idols" onRetry={refetch} />;
+  }
+
+  if (data && data.pages.every((page) => page.data.length === 0)) {
+    return (
+      <div className="flex flex-col items-center justify-center bg-purple-50 border border-purple-200 rounded-lg p-8 text-center shadow-md">
+        <UserGroupIcon className="h-16 w-16 text-purple-300 mb-4" />
+        <h3 className="text-2xl font-semibold text-purple-700">
+          No Idols Found
+        </h3>
+        <p className="text-gray-600 mt-2">
+          There are no idols to display at the moment. Try adjusting your search
+          or check back later for updates!
+        </p>
+      </div>
+    );
   }
 
   return (
@@ -121,44 +141,40 @@ export default function IdolOverViewCards() {
                 return (
                   <Link key={idol.id} href={`/idols/${idol.slug}`}>
                     <motion.div
-                      ref={isLastElement ? lastIdolElementRef : null}
-                      className="relative bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 cursor-pointer"
+                      ref={isLastElement ? lastElementRef : null}
+                      className="relative p-[2px] bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg max-w-5xl mx-auto"
                       variants={itemVariants}
-                      initial="hidden"
-                      animate="visible"
-                      exit="exit"
-                      whileHover={{ scale: 1.05 }}
+                      whileHover={{ scale: 1.05, rotate: 0.5 }}
                       transition={{ duration: 0.3 }}
                     >
-                      {/* Badge indicators */}
-                      {new Date(idol.debute_date).getFullYear() >= 2020 && (
-                        <span className="absolute top-2 left-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded-full">
-                          New
-                        </span>
-                      )}
+                      <div className="bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 cursor-pointer">
+                        <div className="relative w-full h-56">
+                          <Image
+                            src={idol.profile_picture}
+                            alt={idol.name}
+                            fill={true}
+                            sizes="100%"
+                            style={{ objectFit: "cover" }}
+                            priority={true}
+                            className="rounded-t-lg"
+                          />
+                        </div>
+                        <div className="p-4">
+                          <h2 className="text-lg font-semibold text-purple-700">
+                            {idol.name}
+                          </h2>
+                          <p className="text-sm text-gray-500">
+                            {idol.group.company}
+                          </p>
+                          <p className="text-sm text-gray-500">
+                            Debut Year:{" "}
+                            {new Date(idol.debute_date).getFullYear()}
+                          </p>
 
-                      {/* Image section */}
-                      <div className="relative w-full h-56">
-                        <Image
-                          src={idol.profile_picture}
-                          alt={idol.name}
-                          fill={true}
-                          sizes="100%"
-                          style={{ objectFit: "cover" }}
-                          priority={true}
-                          className="rounded-t-lg"
-                        />
-                      </div>
-                      <div className="p-4">
-                        <h2 className="text-lg font-semibold text-purple-700">
-                          {idol.name}
-                        </h2>
-                        <p className="text-sm text-gray-500">
-                          {idol.group.company}
-                        </p>
-                        <p className="text-sm text-gray-500">
-                          Debut Year: {new Date(idol.debute_date).getFullYear()}
-                        </p>
+                          <div className="mt-2">
+                            <LatestPerformance schedules={idol.schedules} />
+                          </div>
+                        </div>
                       </div>
                     </motion.div>
                   </Link>
@@ -169,7 +185,6 @@ export default function IdolOverViewCards() {
         </AnimatePresence>
       </motion.div>
 
-      {/* Loading indicator for fetching next page */}
       {isFetchingNextPage && (
         <div className="mt-6">
           <SkeletonCard />
@@ -186,7 +201,6 @@ export default function IdolOverViewCards() {
         </Button>
       )}
 
-      {/* No more data message */}
       {!hasNextPage && (
         <p className="mt-6 text-gray-500 text-sm">No more idols to load.</p>
       )}

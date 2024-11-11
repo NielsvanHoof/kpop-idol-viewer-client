@@ -1,8 +1,5 @@
-import IdolDetailsSection from "@/components/idols/profile/idolDetailsSection";
-import IdolPhotoGallery from "@/components/idols/profile/idolPhotoGallery";
 import IdolProfileSection from "@/components/idols/profile/idolProfileSection";
-import IdolTopSongs from "@/components/idols/profile/idolTopSongs";
-import IdolUpcomingEvents from "@/components/idols/profile/idolUpcomingEvents";
+import IdolTabs from "@/components/idols/profile/idolTabs";
 import fetchIdol from "@/queries/idols/fetchIdol";
 import { Idol, Schedule } from "@/types/models";
 import Response from "@/types/response";
@@ -44,18 +41,15 @@ export default async function IdolProfilePage({
 
   return (
     <div>
+      {/* Sections */}
       <IdolProfileSection
         name={idol.data.name}
         profilePicture={idol.data.profile_picture}
         description={processedBio}
       />
-      <IdolDetailsSection
-        debutYear={idol.data.debute_date}
-        group={idol.data.group}
-      />
-      <IdolUpcomingEvents events={events} />
-      <IdolPhotoGallery photos={idol.data.photos} />
-      <IdolTopSongs idol={idol.data} />
+
+      {/* Tab Navigation */}
+      <IdolTabs idol={idol.data} events={events} />
     </div>
   );
 }

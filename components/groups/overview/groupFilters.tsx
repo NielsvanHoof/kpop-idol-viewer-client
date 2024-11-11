@@ -16,18 +16,18 @@ export default function GroupFilters() {
   return (
     <Disclosure>
       {({ open }) => (
-        <div>
-          <DisclosureButton className="w-full text-left px-4 py-2 bg-purple-700 text-white rounded-lg mb-4 focus:outline-none focus:ring focus:ring-purple-300">
+        <div className="mb-4 sticky top-0 z-40">
+          <DisclosureButton className="w-full text-center px-4 py-2 bg-purple-600 text-white rounded-lg shadow-md focus:outline-none hover:bg-purple-700 transition-colors">
             {open ? "Hide Filters" : "Show Filters"}
           </DisclosureButton>
-          <DisclosurePanel className="p-4 bg-white rounded-lg shadow-md mb-6">
+          <DisclosurePanel className="p-6 mt-4 bg-white rounded-lg shadow-lg">
             <div className="flex flex-col md:flex-row md:space-x-4">
               {/* Filter by Year */}
               <Listbox
                 value={useGroupOverViewStore.filterYear}
                 onChange={(value) => useGroupOverViewStore.setFilterYear(value)}
               >
-                <div className="relative w-full md:w-1/3">
+                <div className="relative w-full md:w-1/3 mb-4 md:mb-0">
                   <ListboxButton className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-500">
                     Filter by Year: {useGroupOverViewStore.filterYear}
                   </ListboxButton>

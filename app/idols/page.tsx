@@ -6,8 +6,8 @@ export default function Idols() {
     <div className="flex flex-col min-h-screen">
       {/* Main Content */}
       <main className="flex-grow">
-        <section className="bg-gradient-to-r from-purple-50 to-pink-50 py-12">
-          <div className="max-w-6xl mx-auto px-4">
+        <section className="bg-gradient-to-r from-purple-50 to-pink-50 py-16 px-4 md:px-8">
+          <div className="max-w-6xl mx-auto">
             <div className="text-center mb-10">
               <h1 className="text-4xl font-bold text-purple-700">
                 Idols Overview
