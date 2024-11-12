@@ -1,5 +1,6 @@
 import Footer from "@/components/general/footer";
 import Navigation from "@/components/general/navigation";
+import GlobalAudioController from "@/components/ui/audioPlayer";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
@@ -33,6 +34,7 @@ export default function RootLayout({
       >
         <Navigation />
         <Providers>{children}</Providers>
+        <GlobalAudioController />
         <Footer />
       </body>
     </html>
