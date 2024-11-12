@@ -1,7 +1,7 @@
 "use client";
 
 import { Schedule } from "@/types/models";
-import { CalendarIcon } from "@heroicons/react/16/solid";
+import { CiCalendar } from "react-icons/ci";
 
 interface GroupEventsProps {
   events: Schedule[];
@@ -11,7 +11,7 @@ export default function GroupEvents({ events }: GroupEventsProps) {
   if (events.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center bg-purple-50 border border-purple-200 rounded-lg p-8 text-center shadow-md">
-        <CalendarIcon className="h-16 w-16 text-purple-300 mb-4" />
+        <CiCalendar className="h-16 w-16 text-purple-300 mb-4" />
         <h3 className="text-2xl font-semibold text-purple-700">
           No Upcoming Events
         </h3>

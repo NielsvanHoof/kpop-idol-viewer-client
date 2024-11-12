@@ -1,10 +1,10 @@
 "use client";
 
 import { Idol } from "@/types/models";
-import { UserGroupIcon } from "@heroicons/react/16/solid";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { CiUser } from "react-icons/ci";
 
 interface GroupMembersProps {
   members: Idol[];
@@ -14,7 +14,7 @@ export default function GroupMembers({ members }: GroupMembersProps) {
   if (members.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center bg-purple-50 border border-purple-200 rounded-lg p-8 text-center shadow-md">
-        <UserGroupIcon className="h-16 w-16 text-purple-300 mb-4" />
+        <CiUser className="h-16 w-16 text-purple-300 mb-4" />
         <h3 className="text-2xl font-semibold text-purple-700">
           No Members Available
         </h3>

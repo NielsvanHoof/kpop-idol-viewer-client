@@ -2,10 +2,10 @@
 
 import Error from "@/app/_error";
 import FetchAlbums from "@/queries/spotify/fetchAlbums";
-import { MusicalNoteIcon } from "@heroicons/react/16/solid";
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { CiMusicNote1 } from "react-icons/ci";
 
 const containerVariants = {
   hidden: { opacity: 1 },
@@ -56,7 +56,7 @@ export default function GroupDiscography({
   if (!data?.items.length) {
     return (
       <div className="flex flex-col items-center justify-center bg-purple-50 border border-purple-200 rounded-lg p-8 text-center shadow-md">
-        <MusicalNoteIcon className="h-16 w-16 text-purple-300 mb-4" />
+        <CiMusicNote1 className="h-16 w-16 text-purple-300 mb-4" />
         <h3 className="text-2xl font-semibold text-purple-700">
           No Albums Available
         </h3>

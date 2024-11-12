@@ -1,8 +1,8 @@
 "use client";
 
-import { CameraIcon } from "@heroicons/react/16/solid";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { CiCamera } from "react-icons/ci";
 import Slider, { Settings } from "react-slick";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
@@ -37,7 +37,7 @@ export default function GroupPhotoGallery({ photos }: GroupPhotoGalleryProps) {
   if (!photos || photos.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center bg-purple-50 border border-purple-200 rounded-lg p-8 text-center shadow-md">
-        <CameraIcon className="h-16 w-16 text-purple-300 mb-4" />
+        <CiCamera className="h-16 w-16 text-purple-300 mb-4" />
         <h3 className="text-2xl font-semibold text-purple-700">
           No Photos Available
         </h3>
