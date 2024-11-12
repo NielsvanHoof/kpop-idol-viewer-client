@@ -38,6 +38,7 @@ export default function IdolTabsContent({
           socialLinks={{
             instagram: "https://instagram.com/idolname",
             twitter: "https://twitter.com/idolname",
+            youtube: "https://youtube.com/idolname",
           }}
           trivia={[
             "Loves painting in her free time.",

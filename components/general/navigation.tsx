@@ -10,16 +10,17 @@ import {
   PopoverPanel,
   Transition,
 } from "@headlessui/react";
-import { Bars3Icon, UserIcon, XCircleIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import { Fragment } from "react";
+import { CiCircleRemove, CiUser } from "react-icons/ci";
+import { HiOutlineBars3 } from "react-icons/hi2";
 
 export default function Navigation() {
   return (
     <Disclosure
       as="nav"
       className="bg-gradient-to-r from-purple-600 to-pink-600 sticky top-0 z-50 shadow-lg"
-      >
+    >
       {({ open }) => (
         <>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -86,7 +87,7 @@ export default function Navigation() {
               {/* profile icons */}
               <div className="flex items-center space-x-4">
                 <Button className="text-white hover:text-purple-200">
-                  <UserIcon className="h-6 w-6" />
+                  <CiUser className="h-6 w-6" />
                 </Button>
               </div>
 
@@ -94,9 +95,9 @@ export default function Navigation() {
               <div className="-mr-2 flex md:hidden">
                 <DisclosureButton className="text-white hover:text-purple-200">
                   {open ? (
-                    <XCircleIcon className="h-6 w-6" />
+                    <CiCircleRemove className="h-6 w-6" />
                   ) : (
-                    <Bars3Icon className="h-6 w-6" />
+                    <HiOutlineBars3 className="h-6 w-6" />
                   )}
                 </DisclosureButton>
               </div>

@@ -2,6 +2,7 @@
 
 import { Idol } from "@/types/models";
 import { motion } from "framer-motion";
+import { FaInstagram, FaXTwitter, FaYoutube } from "react-icons/fa6";
 
 interface BioProps {
   achievements: string[];
@@ -108,7 +109,7 @@ export default function IdolDetailsSection({
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Instagram
+                <FaInstagram className="h-6 w-6" />
               </a>
             )}
             {socialLinks.twitter && (
@@ -117,7 +118,7 @@ export default function IdolDetailsSection({
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Twitter
+                <FaXTwitter className="h-6 w-6" />
               </a>
             )}
             {socialLinks.youtube && (
@@ -126,7 +127,7 @@ export default function IdolDetailsSection({
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                YouTube
+                <FaYoutube className="h-6 w-6" />
               </a>
             )}
           </div>

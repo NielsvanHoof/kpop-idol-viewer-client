@@ -1,17 +1,17 @@
 "use client";
 
 import Error from "@/app/_error";
+import SkeletonCard from "@/components/ui/skeletonCard";
 import useInfiniteLoading from "@/hooks/useInfiniteLoading";
 import fetchIdols from "@/queries/idols/fetchIdols";
 import { useIdolOverviewStore } from "@/state/idol.overview";
 import { Schedule } from "@/types/models";
 import { Button } from "@headlessui/react";
-import { UserGroupIcon } from "@heroicons/react/24/solid";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import SkeletonCard from "../../ui/skeletonCard";
+import { CiUser } from "react-icons/ci";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -119,7 +119,7 @@ export default function IdolOverViewCards() {
   if (data && data.pages.every((page) => page.data.length === 0)) {
     return (
       <div className="flex flex-col items-center justify-center bg-purple-50 border border-purple-200 rounded-lg p-8 text-center shadow-md">
-        <UserGroupIcon className="h-16 w-16 text-purple-300 mb-4" />
+        <CiUser className="h-16 w-16 text-purple-300 mb-4" />
         <h3 className="text-2xl font-semibold text-purple-700">
           No Idols Found
         </h3>

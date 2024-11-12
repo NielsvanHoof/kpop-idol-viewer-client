@@ -13,8 +13,13 @@ export default function GroupCards() {
   const useGroupOverViewStore = useGroupOverviewStore();
 
   const { data, isLoading, isError, refetch } = useQuery({
-    queryKey: ["groups"],
-    queryFn: fetchGroups,
+    queryKey: [
+      "groups",
+      useGroupOverViewStore.searchQuery,
+      useGroupOverViewStore.filterYear,
+      useGroupOverViewStore.sortOption,
+    ],
+    queryFn: () => fetchGroups(useGroupOverViewStore.searchQuery),
   });
 
   if (isLoading) {

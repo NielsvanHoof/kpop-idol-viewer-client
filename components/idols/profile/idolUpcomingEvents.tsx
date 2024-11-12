@@ -2,12 +2,11 @@
 
 import { useEventStore } from "@/state/idol.events";
 import { Schedule } from "@/types/models";
-import { CalendarIcon } from "@heroicons/react/24/outline"; // Importing a calendar icon for the placeholder
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { CiCalendar } from "react-icons/ci";
 import IdolEventFilter from "./idolEventFilter";
 import IdolEventModalDetails from "./idolEventModalDetails";
-
 interface IdolEventsProps {
   events: Schedule[];
 }
@@ -42,7 +41,7 @@ export default function IdolUpcomingEvents({ events }: IdolEventsProps) {
   if (filteredEvents.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center bg-purple-50 border border-purple-200 rounded-lg p-8 text-center shadow-md">
-        <CalendarIcon className="h-16 w-16 text-purple-300 mb-4" />
+        <CiCalendar className="h-16 w-16 text-purple-300 mb-4" />
         <h3 className="text-2xl font-semibold text-purple-700">
           No Upcoming Events
         </h3>

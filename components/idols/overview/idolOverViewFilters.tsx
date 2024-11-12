@@ -10,13 +10,12 @@ import {
   ListboxOption,
   ListboxOptions,
 } from "@headlessui/react";
-import {
-  AdjustmentsVerticalIcon,
-  ChevronDownIcon,
-} from "@heroicons/react/16/solid";
+
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { HiAdjustmentsVertical } from "react-icons/hi2";
+import { IoChevronDown } from "react-icons/io5";
 
 export default function IdolOverViewFilters() {
   const [groupsEnabled, setGroupsEnabled] = useState(false);
@@ -26,7 +25,7 @@ export default function IdolOverViewFilters() {
 
   const groups = useQuery({
     queryKey: ["groups"],
-    queryFn: fetchGroups,
+    queryFn: () => fetchGroups(),
     enabled: groupsEnabled,
   });
 
@@ -37,14 +36,14 @@ export default function IdolOverViewFilters() {
         onClick={() => setFiltersVisible(!filtersVisible)}
         className="flex items-center mb-4 px-4 py-2 bg-purple-600 text-white rounded-lg shadow-md hover:bg-purple-700 focus:outline-none"
       >
-        <AdjustmentsVerticalIcon className="w-5 h-5 mr-2" />
+        <HiAdjustmentsVertical className="w-5 h-5 mr-2" />
         {filtersVisible ? "Hide Filters" : "Show Filters"}
       </Button>
 
       {/* Filters Section */}
       {filtersVisible && (
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-4 gap-6"
+          className="grid grid-cols-1 md:grid-cols-4 gap-6 z-10"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}
@@ -73,7 +72,7 @@ export default function IdolOverViewFilters() {
                   : groups.data?.data.find(
                       (group) => group.id === useOverViewStore.filterGroup
                     )?.name}
-                <ChevronDownIcon className="w-5 h-5 text-gray-500 ml-2" />
+                <IoChevronDown className="w-5 h-5 text-gray-500 ml-2" />
               </ListboxButton>
               <ListboxOptions className="absolute mt-1 w-full bg-white shadow-lg rounded-lg z-10">
                 <ListboxOption
@@ -114,7 +113,7 @@ export default function IdolOverViewFilters() {
                 {useOverViewStore.sortOption === "debute_date"
                   ? "Debute Date"
                   : "name"}
-                <ChevronDownIcon className="w-5 h-5 text-gray-500 ml-2" />
+                <IoChevronDown className="w-5 h-5 text-gray-500 ml-2" />
               </ListboxButton>
               <ListboxOptions className="absolute mt-1 w-full bg-white shadow-lg rounded-lg z-10">
                 {["name", "debute_date"].map((option, index) => (
