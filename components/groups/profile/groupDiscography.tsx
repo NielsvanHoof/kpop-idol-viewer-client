@@ -70,7 +70,7 @@ export default function GroupDiscography({
 
   return (
     <motion.div
-      className="space-y-4"
+      className="space-y-6" // Increased space between items for visual clarity
       variants={containerVariants}
       initial="hidden"
       animate="visible"
@@ -81,30 +81,39 @@ export default function GroupDiscography({
           href={album.external_urls.spotify}
           target="_blank"
           rel="noopener noreferrer"
+          className="block"
         >
           <motion.div
-            whileHover={{ scale: 1.02 }}
-            transition={{ duration: 0.1 }}
+            whileHover={{
+              scale: 1.01,
+              boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.2)",
+            }}
+            transition={{ duration: 0.2 }}
             variants={itemVariants}
-            className="flex items-center bg-white rounded-lg p-4 shadow-md hover:shadow-lg transition space-x-4"
+            className="flex items-center bg-gradient-to-r from-white to-purple-50 rounded-xl p-5 shadow-lg hover:shadow-xl transition space-x-4"
           >
-            <div className="relative w-16 h-16 overflow-hidden rounded-lg">
+            {/* Album Art */}
+            <div className="relative w-20 h-20 overflow-hidden rounded-lg shadow-md flex-shrink-0">
               <Image
                 src={album.images[0].url}
-                width={64}
-                height={64}
+                width={80}
+                height={80}
                 alt={album.name}
+                className="object-cover"
               />
             </div>
+
+            {/* Album Details */}
             <div className="flex-1">
-              <h3 className="text-lg font-medium text-gray-800">
+              <h3 className="text-lg font-semibold text-purple-800 mb-1">
                 {album.name}
               </h3>
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-gray-500 mb-1">
                 {new Date(album.release_date).toLocaleDateString()}
               </p>
-              <p className="text-xs text-gray-400">
-                {album.total_tracks} tracks
+              <p className="text-sm text-gray-600 mb-1">
+                {album.total_tracks}{" "}
+                {album.total_tracks > 1 ? "tracks" : "track"}
               </p>
               <p className="text-xs text-gray-400">
                 {album.artists.map((artist) => artist.name).join(", ")}

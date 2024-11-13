@@ -32,19 +32,23 @@ export default function GroupMembers({ members }: GroupMembersProps) {
         <Link key={member.id} href={`/idols/${member.slug}`}>
           <motion.div
             key={member.id}
-            className="text-center bg-white shadow rounded-lg p-4"
+            className="text-center bg-white shadow-lg rounded-xl p-6 hover:bg-purple-50 transition-colors duration-300"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             transition={{ duration: 0.1 }}
           >
-            <Image
-              src={member.profile_picture}
-              alt={member.name}
-              width={100}
-              height={100}
-              className="rounded-full object-cover mx-auto shadow"
-            />
-            <h3 className="mt-2 text-lg font-semibold">{member.name}</h3>
+            <div className="relative w-24 h-24 mx-auto">
+              <Image
+                src={member.profile_picture}
+                alt={member.name}
+                fill
+                sizes="100%"
+                className="rounded-full object-cover border-4 border-purple-300 shadow-md"
+              />
+            </div>
+            <h3 className="mt-3 text-lg font-semibold text-gray-800">
+              {member.name}
+            </h3>
           </motion.div>
         </Link>
       ))}

@@ -52,14 +52,19 @@ export default function GroupPhotoGallery({ photos }: GroupPhotoGalleryProps) {
   return (
     <Slider {...settings} className="p-4">
       {photos.map((photo, index) => (
-        <motion.div key={index} className="p-2" whileHover={{ scale: 1.05 }}>
-          <div className="relative w-full h-64 rounded-lg overflow-hidden shadow-lg">
+        <motion.div
+          key={index}
+          className="p-2"
+          whileHover={{ scale: 1.03 }}
+          transition={{ duration: 0.2 }}
+        >
+          <div className="relative w-full h-64 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out">
             <Image
               src={photo}
               alt={`Group Photo ${index + 1}`}
               fill={true}
               sizes="100%"
-              className="object-cover"
+              className="object-cover rounded-xl"
             />
           </div>
         </motion.div>
