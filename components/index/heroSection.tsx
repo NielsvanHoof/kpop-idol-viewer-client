@@ -3,6 +3,12 @@
 import { Button } from "@headlessui/react";
 import { motion, Variant } from "framer-motion";
 
+const animationProps = [
+  { opacity: 0.4, scale: 1, y: [-20, 20] },
+  { opacity: 0.3, scale: 1.2, x: [-15, 15], y: [-15, 15] },
+  { opacity: 0.5, scale: 0.9, y: [10, -10] },
+];
+
 function FloatingElement({
   className,
   animationProps,
@@ -25,12 +31,6 @@ function FloatingElement({
 }
 
 export default function HeroSection() {
-  const animationProps = [
-    { opacity: 0.4, scale: 1, y: [-20, 20] },
-    { opacity: 0.3, scale: 1.2, x: [-15, 15], y: [-15, 15] },
-    { opacity: 0.5, scale: 0.9, y: [10, -10] },
-  ];
-
   return (
     <section className="relative bg-gradient-to-r from-purple-500 to-pink-500 text-white py-20 overflow-hidden">
       {/* Sprinkle animated icons */}

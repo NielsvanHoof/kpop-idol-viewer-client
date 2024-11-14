@@ -2,7 +2,7 @@ import { Group } from "@/types/models";
 import Response from "@/types/response";
 
 export default async function FetchGroup(slug: string, include: string[] = []) {
-  const url = new URL(`${process.env.NEXT_PUBLIC_API_URL}/groups/${slug}`);
+  const url = new URL(`${process.env.NEXT_PUBLIC_API_URL}/api/groups/${slug}`);
 
   const params = new URLSearchParams();
 

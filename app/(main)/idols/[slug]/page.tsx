@@ -43,8 +43,12 @@ export default async function IdolProfilePage({
     <div>
       {/* Sections */}
       <IdolProfileSection
-        name={idol.data.name}
-        profilePicture={idol.data.profile_picture}
+        idol={idol.data}
+        socialLinks={{
+          instagram: "https://instagram.com/idolname",
+          twitter: "https://twitter.com/idolname",
+          youtube: "https://youtube.com/idolname",
+        }}
       />
 
       {/* Tab Navigation */}

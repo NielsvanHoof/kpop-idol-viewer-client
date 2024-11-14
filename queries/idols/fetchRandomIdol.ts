@@ -3,7 +3,7 @@ import Response from "@/types/response";
 
 export default async function FetchRandomIdol() {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/idols/spotlight`
+    `${process.env.NEXT_PUBLIC_API_URL}/api/idols/spotlight`
   );
 
   if (!response.ok) {

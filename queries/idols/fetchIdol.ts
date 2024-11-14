@@ -3,7 +3,7 @@ import Response from "@/types/response";
 
 export default async function fetchIdol(slug: string) {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/idols/${slug}?include=group,schedules,group.schedules`
+    `${process.env.NEXT_PUBLIC_API_URL}/api/idols/${slug}?include=group,schedules,group.schedules`
   );
 
   if (!response.ok) {

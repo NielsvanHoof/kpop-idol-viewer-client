@@ -35,11 +35,6 @@ export default function IdolTabsContent({
             "Won 'Best Female Group' at MAMA Awards 2021",
             "Featured in Billboard Top 100",
           ]}
-          socialLinks={{
-            instagram: "https://instagram.com/idolname",
-            twitter: "https://twitter.com/idolname",
-            youtube: "https://youtube.com/idolname",
-          }}
           trivia={[
             "Loves painting in her free time.",
             "Her favorite color is blue.",

@@ -9,7 +9,7 @@ export default async function fetchIdols(
   cursor: string | null = null,
   perPage: number = 4
 ) {
-  const url = new URL(`${process.env.NEXT_PUBLIC_API_URL}/idols`);
+  const url = new URL(`${process.env.NEXT_PUBLIC_API_URL}/api/idols`);
 
   const params = new URLSearchParams();
 

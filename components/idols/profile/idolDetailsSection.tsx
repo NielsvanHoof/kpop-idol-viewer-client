@@ -2,14 +2,7 @@
 
 import { Idol } from "@/types/models";
 import { motion } from "framer-motion";
-import {
-  FaCircleInfo,
-  FaInstagram,
-  FaTrophy,
-  FaUsers,
-  FaXTwitter,
-  FaYoutube,
-} from "react-icons/fa6";
+import { FaCircleInfo, FaTrophy, FaUsers } from "react-icons/fa6";
 
 interface BioProps {
   achievements: string[];
@@ -25,7 +18,6 @@ interface BioProps {
 
 export default function IdolDetailsSection({
   achievements,
-  socialLinks,
   trivia,
   description,
   idol,
@@ -44,18 +36,6 @@ export default function IdolDetailsSection({
         },
       }}
     >
-      {/* Hero Section with Background Image */}
-      <div
-        className="relative bg-cover bg-center h-48 rounded-xl overflow-hidden"
-        style={{ backgroundImage: `url('/path/to/image.jpg')` }} // Replace with actual image path
-      >
-        <div className="absolute inset-0 bg-purple-800 opacity-50 rounded-xl"></div>
-        <div className="relative text-white p-6">
-          <h1 className="text-4xl font-bold">{idol.name}</h1>
-          <p className="text-lg">Member of {idol.group?.name}</p>
-        </div>
-      </div>
-
       {/* About Section */}
       <motion.div className="bg-white p-6 rounded-lg shadow-md border border-gray-200 space-y-4">
         <h3 className="text-3xl font-bold text-purple-700 flex items-center space-x-2">
@@ -157,51 +137,6 @@ export default function IdolDetailsSection({
               </motion.div>
             ))}
           </div>
-        </motion.div>
-      )}
-
-      {/* Social Media Links with Hover Effects */}
-      {socialLinks && (
-        <motion.div className="bg-white p-6 rounded-lg shadow-md border border-gray-200 space-y-4">
-          <h3 className="text-2xl font-bold text-purple-700 flex items-center space-x-2">
-            <FaUsers className="text-purple-500" />
-            <span>Follow on Social Media</span>
-          </h3>
-          <div className="flex space-x-6 text-purple-600">
-            {socialLinks.instagram && (
-              <a
-                href={socialLinks.instagram}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-purple-800 transition duration-300 transform hover:scale-110 hover:shadow-md"
-              >
-                <FaInstagram className="h-7 w-7" />
-              </a>
-            )}
-            {socialLinks.twitter && (
-              <a
-                href={socialLinks.twitter}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-purple-800 transition duration-300 transform hover:scale-110 hover:shadow-md"
-              >
-                <FaXTwitter className="h-7 w-7" />
-              </a>
-            )}
-            {socialLinks.youtube && (
-              <a
-                href={socialLinks.youtube}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-purple-800 transition duration-300 transform hover:scale-110 hover:shadow-md"
-              >
-                <FaYoutube className="h-7 w-7" />
-              </a>
-            )}
-          </div>
-          <button className="mt-4 bg-purple-600 text-white py-2 px-6 rounded-full shadow-lg hover:bg-purple-700 transition duration-300">
-            Follow for Updates
-          </button>
         </motion.div>
       )}
     </motion.div>

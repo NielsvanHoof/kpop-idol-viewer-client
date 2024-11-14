@@ -5,13 +5,13 @@ import SkeletonCard from "@/components/ui/skeletonCard";
 import useInfiniteLoading from "@/hooks/useInfiniteLoading";
 import fetchIdols from "@/queries/idols/fetchIdols";
 import { useIdolOverviewStore } from "@/state/idol.overview";
-import { Schedule } from "@/types/models";
 import { Button } from "@headlessui/react";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { CiUser } from "react-icons/ci";
+import IdolOverViewUpcomingPerformance from "./idolOverViewUpcomingPerformance";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -28,33 +28,6 @@ const itemVariants = {
   visible: { opacity: 1, y: 0 },
   exit: { opacity: 0, y: -20 },
 };
-
-function LatestPerformance({ schedules }: { schedules: Schedule[] }) {
-  const latestSchedule = schedules.sort((a, b) => {
-    return new Date(b.date).getTime() - new Date(a.date).getTime();
-  })[0];
-
-  if (!latestSchedule) {
-    return (
-      <div>
-        <p className="text-sm text-gray-500">No Performances</p>
-      </div>
-    );
-  }
-
-  return (
-    <div>
-      <p className="text-sm text-gray-500">
-        {latestSchedule.date > new Date().toISOString()
-          ? "Upcoming Performance"
-          : "Latest Performance"}
-      </p>
-      <p className="text-sm text-gray-500">
-        {new Date(latestSchedule.date).toDateString()}
-      </p>
-    </div>
-  );
-}
 
 export default function IdolOverViewCards() {
   const useOverViewStore = useIdolOverviewStore();
@@ -180,7 +153,9 @@ export default function IdolOverViewCards() {
                           </p>
 
                           <div className="mt-2">
-                            <LatestPerformance schedules={idol.schedules} />
+                            <IdolOverViewUpcomingPerformance
+                              schedules={idol.schedules}
+                            />
                           </div>
                         </div>
                       </div>
